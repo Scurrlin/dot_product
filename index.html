@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dot Products and Duality</title>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- KaTeX for math rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body, {
+            delimiters: [
+                {left: '$$', right: '$$', display: true},
+                {left: '$', right: '$', display: false}
+            ]
+        });"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Dot Products & Duality Speedrun Any%</h1>
+            <p class="meta">Based on the lesson by Grant Sanderson (3Blue1Brown)</p>
+        </header>
+        
+        <article>
+            <!-- Your intro/explanation goes here -->
+            
+            <p>This is a simplified version of the dot product and duality lesson from Grant Sanderson's "Essence of Linear Algebra" series. I won't be diving too deep into linear transformations, unit vectors, or duality, but will discuss them briefly.</p>
+
+            <!-- SECTION: Numerical Method -->
+            <h2>Numerical Method</h2>
+            
+            <p>Numerically, if you have two vectors of the same dimension, their dot product is just the sum of the products of their corresponding coordinates.</p>
+            
+            <div class="figure">
+                <img src="images/image1-2d-dot-product.svg" alt="Visual showing two 2D vectors being dotted together">
+                <p class="figure-caption">The dot product of two 2D vectors</p>
+            </div>
+
+            <p>For instance, two vectors of length two dotted together looks like this:</p>
+            
+            <div class="math-block">
+                $$\begin{bmatrix} 1 \\ 2 \end{bmatrix} \cdot \begin{bmatrix} 3 \\ 4 \end{bmatrix} = 1 \cdot 3 + 2 \cdot 4 = 11$$
+            </div>
+            
+            <p>And two vectors of length four dotted together looks like this:</p>
+            
+            <div class="math-block">
+                $$\begin{bmatrix} 6 \\ 2 \\ 8 \\ 3 \end{bmatrix} \cdot \begin{bmatrix} 1 \\ 8 \\ 5 \\ 3 \end{bmatrix} = 6 \cdot 1 + 2 \cdot 8 + 8 \cdot 5 + 3 \cdot 3 = 71$$
+            </div>
+
+            <!-- SECTION: Geometric Interpretation -->
+            <h2>Geometric Interpretation</h2>
+            
+            <p>Below is an example of the same concept, but using a geometric interpretation. To think about the dot product of two vectors $\mathbf{v}$ and $\mathbf{w}$, imagine projecting $\mathbf{w}$ onto the line that passes through the origin and the tip of $\mathbf{v}$.</p>
+            
+            <div class="figure">
+                <img src="images/image2-projection-onto-v.svg" alt="Animation showing w being projected onto the line through v">
+                <p class="figure-caption">Projecting vector w onto the line defined by vector v</p>
+            </div>
+            
+            <p>Multiply the length of this projection by the length of $\mathbf{v}$, and you have the dot product $\mathbf{v} \cdot \mathbf{w}$.</p>
+            
+            <div class="figure">
+                <img src="images/image3-multiply-lengths.svg" alt="Visual showing the projection length multiplied by the length of v">
+                <p class="figure-caption">The dot product equals (length of projection) × (length of v)</p>
+            </div>
+            
+            <p>When the projection of $\mathbf{w}$ is pointing in the opposite direction from $\mathbf{v}$, the dot product will be negative.</p>
+            
+            <div class="figure">
+                <img src="images/image4-negative-dot-product.svg" alt="Visual showing a negative dot product scenario">
+                <p class="figure-caption">When vectors point in opposing directions, the dot product is negative</p>
+            </div>
+            
+            <p>This means the sign of a dot product ($\mathbf{+}$ or $\mathbf{-}$) tells you how much two vectors align:</p>
+            
+            <ul>
+                <li>$\mathbf{v} \cdot \mathbf{w} > 0$ when they point in <span class="highlight">similar directions</span></li>
+                <li>$\mathbf{v} \cdot \mathbf{w} = 0$ when they are <span class="highlight">perpendicular</span>, meaning the projection of one onto the other is the zero vector</li>
+                <li>$\mathbf{v} \cdot \mathbf{w} < 0$ when they point in <span class="highlight">opposing directions</span></li>
+            </ul>
+            
+            <div class="figure">
+                <img src="images/image5-dot-product-sign-regions.svg" alt="Diagram showing green/red/blue regions for positive/negative/zero dot products">
+                <p class="figure-caption">The sign of the dot product indicates directional alignment</p>
+            </div>
+
+            <!-- SECTION: Order Doesn't Matter -->
+            <h3>Order Doesn't Matter</h3>
+            
+            <div class="figure">
+                <img src="images/image6-symmetry.svg" alt="Visual showing both projection orders yield the same result">
+                <p class="figure-caption">Even though it feels like a different process, it produces the same result</p>
+            </div>
+
+            <p>The geometric interpretation above highlights a key point: You can project $\mathbf{v}$ onto $\mathbf{w}$ or $\mathbf{w}$ onto $\mathbf{v}$ and either operation will result in the same dot product.</p>
+            
+            <div class="figure">
+                <img src="images/image7-scaling-symmetry.svg" alt="Visual showing how scaling affects the dot product symmetrically">
+                <p class="figure-caption">Equal-length vectors have perfect symmetry</p>
+            </div>
+            
+            <p>Here's why: Equal-length vectors are symmetrical. If you scale $\mathbf{v}$ by $2$ or $\mathbf{w}$ by $2$, both methods will still double the product:</p>
+
+            <div class="figure">
+                <img src="images/image8-scaling-effect.svg" alt="Visual showing how scaling affects the dot product">
+                <p class="figure-caption">Scaling breaks symmetry but doesn't change the result</p>
+            </div>
+            
+            <div class="figure">
+                <img src="images/image8.1-scaling-effect.svg" alt="Visual showing how scaling affects the dot product">
+                <p class="figure-caption">Project w → v: projection unchanged, vector doubled</p>
+            </div>
+            
+            <div class="figure">
+                <img src="images/image8.2-scaling-effect.svg" alt="Visual showing how scaling affects the dot product">
+                <p class="figure-caption">Project v → w: projection doubled, vector unchanged</p>
+            </div>
+
+            <!-- SECTION: Linear Transformations -->
+            <h2>Linear Transformations</h2>
+
+            <p>Assuming coordinates of ($\hat{\imath}$, $\hat{\jmath}$), let's implement a linear transformation. Say you have a linear transformation that takes $\hat{\imath}$ to $2$, and $\hat{\jmath}$ to $-1$. To follow where a vector with coordinates $\begin{bmatrix} 3 \\ 2 \end{bmatrix}$ ends up, think of breaking up this vector as $3\hat{\imath} + 2\hat{\jmath}$.</p>
+            
+            <div class="figure">
+                <img src="images/image9.1-linear-transformation.svg" alt="Breaking a vector into basis components">
+                <p class="figure-caption">Breaking a vector into its basis components</p>
+            </div>
+
+            <p>By calling our linear transformation $L$, we can use linearity to figure out where our vector goes:</p>
+            
+            <div class="math-block">
+                $$L(3\hat{\imath} + 2\hat{\jmath}) = 3L(\hat{\imath}) + 2L(\hat{\jmath}) = 3(2) + 2(-1) = 4$$
+            </div>
+            
+            <div class="figure">
+                <img src="images/image9.2-linear-transformation.svg" alt="Applying the linear transformation step by step">
+                <p class="figure-caption">Applying the linear transformation step by step</p>
+            </div>
+            
+            <p>When done numerically, this calculation is basically just matrix vector multiplication. In other words, multiplying a $1 \times 2$ matrix by a vector feels just like taking the dot product of two vectors.</p>
+            
+            <div class="figure">
+                <img src="images/image9.3-linear-transformation.svg" alt="Matrix-vector multiplication">
+                <p class="figure-caption">Matrix-vector multiplication is computationally identical to a dot product</p>
+            </div>
+
+            <p>You can visualize the association between $1 \times 2$ matrices and 2D vectors by tilting the numerical representation of a vector on its side to get the associated matrix, or by tipping the matrix back up to get its associated vector.</p>
+
+            <div class="figure">
+                <img src="images/image9.4-matrix-vector-association.svg" alt="Visual showing the association between 1-by-2 matrices and 2d vectors">
+                <p class="figure-caption">There is a nice association between $1 \times 2$ matrices and 2D vectors</p>
+            </div>
+
+            <!-- SECTION: Unit Vectors -->
+            <h2>Unit Vectors & Projection</h2>
+            
+            <p>For this concept, imagine placing a copy of the number line diagonally in 2D space with $0$ at the origin. There's a unit vector $\hat{\mathbf{u}}$ whose endpoint sits where $1$ lands on this diagonal line.</p>
+            
+            <div class="figure">
+                <img src="images/image9-diagonal-numberline.svg" alt="A number line embedded diagonally in 2D space with unit vector û">
+                <p class="figure-caption">A number line sitting diagonally in 2D space, with unit vector $\hat{\mathbf{u}}$ pointing to 1</p>
+            </div>
+            
+            <p>If we project 2D vectors onto this diagonal number line, we've defined a function that takes 2D vectors and outputs numbers. This function is actually linear, since it clearly shows that any line of evenly spaced dots remains evenly spaced once it lands on the number line.</p>
+            
+            <div class="figure">
+                <img src="images/image10.1-example-vectors.svg" alt="Example vectors being projected onto the diagonal number line">
+                <p class="figure-caption">Example vectors being projected onto the diagonal number line</p>
+            </div>
+
+            <div class="figure">
+                <img src="images/image10-projection-function.svg" alt="Vectors being projected onto the diagonal number line">
+                <p class="figure-caption">Projection onto the number line is a linear transformation</p>
+            </div>
+            
+            <p>Given that it's a linear transformation from 2D to 1D, it can be expressed as a $1 \times 2$ matrix. This means that entries in the $1 \times 2$ matrix describing the projection transformation can be interpreted as theoretcal coordinates of u-hat. Computing this projection transformation for arbitrary vectors in space requires multiplying those vectors by this matrix. Essentially, the dot product with a unit vector is calculated the same as projecting onto that vector's span</strong>. The same is also true when scaling a unit vector by a constant.</p>
+
+            <!-- SECTION: Duality -->
+            <h2>Duality</h2>
+            
+            <p>Duality refers to a "natural but surprising" correspondence between two types of mathematical things. In linear algebra, vectors and linear transformations have a dual relationship where each can be understood in terms of the other.</p>
+            
+            <p>When we defined projection onto a diagonal number line, we did so <em>geometrically</em>, not numerically.</p>
+            
+            <div class="figure">
+                <img src="images/image11-2d-to-1d-transform.svg" alt="Animation showing 2D space being projected onto a number line">
+                <p class="figure-caption">A linear transformation from 2D to 1D</p>
+            </div>
+            
+            <p>However, because this transformation is linear, it must be described by some sort of $1 \times 2$ matrix. Since multiplying a $1 \times 2$ matrix by a 2D vector is the same as turning that matrix on its side and taking a dot product, this geometric transformation is <em>inescapably</em> related to some 2D vector.</p>
+            
+            <div class="figure">
+                <img src="images/image12-matrix-vector-duality.svg" alt="Visual showing the connection between 1×2 matrices and 2D vectors">
+                <p class="figure-caption">$1 \times 2$ matrices correspond naturally to 2D vectors</p>
+            </div>
+            
+            <p>In short, any linear transformation to the number line corresponds to a unique vector $\vec{\mathbf{v}}$. Applying that transformation to $\vec{\mathbf{w}}$ is the same as computing $\vec{\mathbf{v}} \cdot \vec{\mathbf{w}}$.</p>
+
+            <!-- SECTION: Conclusion -->
+            <h2>Conclusion</h2>
+            
+            <p>The dot product is a useful geometric tool for understanding projections, and for testing whether vectors are aligned. That's probably the most important thing to remember.</p>
+            
+            <p>But on a deeper level, the dot product is computationally identical to $1 \times 2$ matrix multiplication. Vectors and transformations are essentially two sides of the same coin, something known in the math world as duality.</p>
+        </article>
+        
+        <footer>
+            <p>Content adapted from 3Blue1Brown's "Essence of Linear Algebra" series</p>
+            <p>© 2025 Grant Sanderson</p>
+        </footer>
+    </div>
+</body>
+</html>
