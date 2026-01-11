@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dot Products and Duality</title>
+    <link rel="icon" type="image/png" href="SClogo.png">
     
     <!-- Styles -->
     <link rel="stylesheet" href="styles.css">
@@ -20,6 +21,16 @@
         });"></script>
 </head>
 <body>
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+        </svg>
+    </button>
+
     <div class="container">
         <header>
             <h1>Dot Products & Duality Speedrun Any%</h1>
@@ -179,7 +190,7 @@
                 <p class="figure-caption">Projection onto the number line is a linear transformation</p>
             </div>
             
-            <p>Given that it's a linear transformation from 2D to 1D, it can be expressed as a $1 \times 2$ matrix. This means that entries in the $1 \times 2$ matrix describing the projection transformation can be interpreted as theoretcal coordinates of u-hat. Computing this projection transformation for arbitrary vectors in space requires multiplying those vectors by this matrix. Essentially, the dot product with a unit vector is calculated the same as projecting onto that vector's span</strong>. The same is also true when scaling a unit vector by a constant.</p>
+            <p>Given that it's a linear transformation from 2D to 1D, it can be expressed as a $1 \times 2$ matrix. This means that entries in the $1 \times 2$ matrix describing the projection transformation can be interpreted as theoretical coordinates of u-hat. Computing this projection transformation for arbitrary vectors in space requires multiplying those vectors by this matrix. Essentially, the dot product with a unit vector is calculated the same as projecting onto that vector's span. The same is also true when scaling a unit vector by a constant.</p>
 
             <!-- SECTION: Duality -->
             <h2>Duality</h2>
@@ -211,9 +222,41 @@
         </article>
         
         <footer>
-            <p>Content adapted from 3Blue1Brown's "Essence of Linear Algebra" series</p>
-            <p>© 2025 Grant Sanderson</p>
+            <p>Content adapted from <a href="https://www.youtube.com/watch?v=LyGKycYT2v0" target="_blank" rel="noopener noreferrer">3Blue1Brown's "Essence of Linear Algebra" series</a></p>
+            <p>© 2026 Grant Sanderson</p>
         </footer>
     </div>
+
+    <!-- Theme Toggle Script -->
+    <script>
+        (function() {
+            const toggle = document.querySelector('.theme-toggle');
+            const root = document.documentElement;
+            
+            // Check for saved preference, otherwise use system preference
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                root.setAttribute('data-theme', savedTheme);
+            }
+            
+            toggle.addEventListener('click', () => {
+                const currentTheme = root.getAttribute('data-theme');
+                const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                
+                let newTheme;
+                if (currentTheme === 'dark') {
+                    newTheme = 'light';
+                } else if (currentTheme === 'light') {
+                    newTheme = 'dark';
+                } else {
+                    // No explicit theme set, toggle from system preference
+                    newTheme = systemPrefersDark ? 'light' : 'dark';
+                }
+                
+                root.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+            });
+        })();
+    </script>
 </body>
 </html>
