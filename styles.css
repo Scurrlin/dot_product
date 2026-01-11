@@ -161,6 +161,19 @@ blockquote strong {
     overflow-x: auto;
 }
 
+/* Responsive math scaling */
+@media (max-width: 600px) {
+    .math-block {
+        font-size: 0.85em;
+    }
+}
+
+@media (max-width: 400px) {
+    .math-block {
+        font-size: 0.7em;
+    }
+}
+
 /* List Styles */
 ul, ol {
     margin: 20px 0;
