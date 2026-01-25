@@ -56,6 +56,12 @@ body {
     padding: 60px 24px;
 }
 
+@media (max-width: 600px) {
+    .container {
+        padding: 40px 20px;
+    }
+}
+
 /* Header Styles */
 header {
     text-align: center;
